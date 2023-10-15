@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            background-color: #0ca3d2		;
+        }
+		h1 {
+  margin: -20px -20px 21px;
+  line-height: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  text-shadow: 0 1px white;
+  background: #f3f3f3;
+  border-bottom: 1px solid #cfcfcf;
+  border-radius: 3px 3px 0 0;
+  background-image: -webkit-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -moz-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: -o-linear-gradient(top, whiteffd, #eef2f5);
+  background-image: linear-gradient(to bottom, whiteffd, #eef2f5);
+  -webkit-box-shadow: 0 1px whitesmoke;
+  box-shadow: 0 1px whitesmoke;
+}
+
+        #survey_form {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: row;
+            justify-content:space-between;
+			justify-items:stretch;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+		.form-rad {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: left;
+            margin-bottom: 10px;
+        }
+
+        label {
+            width: 40%; 
+            text-align: left;
+            margin-right: 10px;
+       }
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 60%; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+		select {
+		width: 60%; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+		}
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #007BFF; 
+        }
+
+        input[type="radio"] {
+            width: 10%; 
+            margin-right: -10px;
+			font-size: 20px;
+        }
+
+        input[type="button"],
+        input[type="reset"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover,
+        input[type="reset"]:hover {
+            background-color: #0ca3d2;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var firstName = document.getElementById("fname").value;
+            var lastName = document.getElementById("lname").value;
+            var dob = document.getElementById("dob").value;
+            var country = document.getElementById("country").value;
+            var genderElements = document.getElementsByName("gender");
+            var profession = document.getElementById("profession").value;
+            var email = document.getElementById("email").value;
+            var mobileNumber = document.getElementById("mobilenumber").value;
+
+            if (
+                firstName === "" ||
+                lastName === "" ||
+                dob === "" ||
+                country === "" ||
+                profession === "" ||
+                email === "" ||
+                mobileNumber === ""
+            ) {
+                alert("Please fill in all the required fields.");
+                return false;
+            }
+			var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+			if (mobileNumber.length!=10){
+			alert("Please Enter Correct Mobile Number");
+			return false;
+			}
+			
+            var gender = "";
+            for (var i = 0; i < genderElements.length; i++) {
+                if (genderElements[i].checked) {
+                    gender = genderElements[i].value;
+                    break;
+                }
+            }
+            if (gender === "") {
+                alert("Please select a gender.");
+                return false;
+            }
+
+            var popupMessage = "First Name: " + firstName + "\n";
+            popupMessage += "Last Name: " + lastName + "\n";
+            popupMessage += "Date of Birth: " + dob + "\n";
+            popupMessage += "Country: " + country + "\n";
+            popupMessage += "Gender: " + gender + "\n";
+            popupMessage += "Profession: " + profession + "\n";
+            popupMessage += "Email: " + email + "\n";
+            popupMessage += "Mobile Number: " + mobileNumber;
+
+            alert(popupMessage);
+
+            document.getElementById("survey_form").reset();
+        }
+    </script>
+</head>
+<body>
+    <form id="survey_form">
+	<h1> Customer Survey Form</h1>
+        <div class="form-row">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" required>
+        </div>
+
+        <div class="form-row">
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" required>
+        </div>
+
+        <div class="form-row">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+        </div>
+
+        <div class="form-row">
+            <label for="country">Country:</label>
+            <select id="country" required>
+				<option value="USA">India</option>
+				<option value="USA">Australia</option>
+				<option value="USA">Japan</option>
+				<option value="USA">Argentina</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+            </select>
+        </div>
+
+        <div class="form-rad">
+            <label>Gender:</label>
+            <input type="radio" name="gender" value="Male" id="Male">Male&nbsp;
+            <input type="radio" name="gender" value="Female" id="female"> Female
+		</div>
+
+        <div class="form-row">
+            <label for="profession">Profession:</label>
+            <input type="text" id="profession" required>
+        </div>
+
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+
+        <div class="form-row">
+            <label for="mobilenumber">Mobile Number:</label>
+            <input type="tel" id="mobilenumber" required>
+        </div>
+
+        <div class="form-row">
+		<input type="reset" value="Reset">
+            <input type="button" value="Submit" onclick="validateForm()">
+        </div>
+    </form>
+</body>
+</html>
